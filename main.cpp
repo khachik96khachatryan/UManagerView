@@ -1,10 +1,11 @@
+#include "widget.h"
 #include <QApplication>
-#include "umanager.h"
+#include "filereader.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    UManager um;
-    um.show();
+    Widget w;
+    w.show();
 
     return a.exec();
 }
