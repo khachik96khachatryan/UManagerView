@@ -13,7 +13,8 @@ void Widget::modelView(QWidget *parent)
     m_table->setMinimumHeight(650);
     m_table->setMinimumWidth(440);
     m_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
+    m_btnFind->setShortcut(Qt::Key_Return);
+    m_btnOpen->setShortcut(Qt::CTRL+Qt::Key_O);
     QHBoxLayout* hLayout = new QHBoxLayout();
     hLayout->addWidget(m_lineFind);
     hLayout->addWidget(m_btnFind);
@@ -22,7 +23,6 @@ void Widget::modelView(QWidget *parent)
     layout()->addWidget(m_table);
     layout()->addItem(hLayout);
 }
-
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {

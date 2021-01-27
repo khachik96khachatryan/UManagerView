@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QHeaderView>
 #include <QAbstractItemModel>
+#include <QShortcut>
 #include "userstablemodel.h"
 class Widget : public QWidget
 {

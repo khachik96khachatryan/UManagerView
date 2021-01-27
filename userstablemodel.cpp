@@ -3,7 +3,10 @@
 void UsersTableModel::setRowCount()
 {
     if(m_UserData->empty())
+    {
         this->m_RowsCount = 0;
+        return;
+    }
 
     this->m_RowsCount = m_UserData->size();
 }
@@ -23,7 +26,7 @@ UsersTableModel::UsersTableModel(QObject *pobj):QAbstractTableModel(pobj)
 {
     /*m_File->LoadJson("/home/linux/Documents/git/UManager/json.json");
     m_File->updateBaseData();*/
-    updateData();
+   // updateData();
     setRowCount();
     setColumnCount();
 }
@@ -91,17 +94,17 @@ QVariant UsersTableModel::headerData(int section, Qt::Orientation orientation, i
 }
 void UsersTableModel::setFileDir(QString &dir)
 {
-    m_File->LoadJson(dir);
-    m_File->updateBaseData();
-    setRowCount();
-    setColumnCount();
+    if(m_File->LoadJson(dir)){
+        m_File->updateBaseData();
+        setRowCount();
+        setColumnCount();
+        return;
+    }
 }
 
 void UsersTableModel::updateData()
 {
     *m_UserData = m_File->getData();
-    if(m_UserData->empty())
-        return;
     setRowCount();
     setColumnCount();
     emit layoutChanged();

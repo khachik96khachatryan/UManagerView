@@ -5,13 +5,13 @@ FileReader::FileReader(): m_data(new QVector<QStringList>())
 bool FileReader::LoadJson(const QString dir)
 {
     QFile jsonFile(dir);
-
     if(!jsonFile.open(QIODevice::ReadOnly)){ // Try Catch
         QMessageBox::critical(0,"Permission denied","Failed to open file:");
         return false;
       }
       QByteArray saveData = jsonFile.readAll();
       jsonFile.close();
+
       QJsonDocument jsonDocument(QJsonDocument::fromJson(saveData));
       this->jsonObject = jsonDocument.object();
       if(this->jsonObject.empty())
