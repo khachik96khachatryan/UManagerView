@@ -41,7 +41,7 @@ QVariant UsersTableModel::data(const QModelIndex &index, int role) const
     if (!index.isValid()) {
             return QVariant();
         }
-        return (role == Qt::DisplayRole || role == Qt::EditRole)
+        return (role == Qt::DisplayRole)
                         ? m_hash.value(index, QVariant(m_UserData->at(index.row()).at(index.column())))
                         : QVariant();
 }
@@ -76,7 +76,7 @@ QVariant UsersTableModel::headerData(int section, Qt::Orientation orientation, i
         }
         if (role == Qt::DisplayRole)
         {
-            if (orientation == Qt::Horizontal) {
+             if (orientation == Qt::Horizontal) {
                 switch (section)
                 {
                 case 0:
