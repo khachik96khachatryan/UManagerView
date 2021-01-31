@@ -1,5 +1,5 @@
 #include "userstablemodel.h"
-
+#include <QRegExp>
 void UsersTableModel::setRowCount()
 {
     if(m_UserData->empty())
@@ -20,6 +20,8 @@ void UsersTableModel::setColumnCount()
     }
     this->m_ColumnsCount = (m_UserData->at(0)).size();
 }
+
+
 UsersTableModel::UsersTableModel(QObject *pobj):QAbstractTableModel(pobj)
                                                ,m_File(new FileReader())
                                                ,m_UserData(new QVector<QStringList>)
@@ -92,12 +94,36 @@ QVariant UsersTableModel::headerData(int section, Qt::Orientation orientation, i
         }
         return QVariant();
 }
+
 void UsersTableModel::setFileDir(QString &dir)
 {
-    if(m_File->LoadJson(dir)){
-        m_File->updateBaseData();
-        setRowCount();
-        setColumnCount();
+
+    auto beg = qFind(dir,'.')+1;
+    QString d;
+    while(beg != dir.end()){
+        d.push_back(*beg);
+        beg++;
+    }
+
+    if(d == "json"){
+        if(m_File->LoadJson(dir)){
+            m_File->setCheckJson(true);
+            m_File->updateBaseData();
+            setRowCount();
+            setColumnCount();
+            ;
+            return;
+        }}
+    else if(d == "xml"){
+            m_File->LoadXML(dir);
+            m_File->setCheckJson(false);
+            m_File->updateBaseData();
+            setRowCount();
+            setColumnCount();
+            return;
+    }
+    else{
+        QMessageBox::warning(0,"file","file ne sovpadaet");
         return;
     }
 }

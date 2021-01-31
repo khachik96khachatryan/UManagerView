@@ -11,10 +11,12 @@ private:
     QHash<QModelIndex,QVariant> m_hash;
     QVector<QStringList> *m_UserData;
     std::unique_ptr<FileReader> m_File;
+    QString fileDir;
 
     QString m_value_find;
     void setRowCount();
     void setColumnCount();
+    QString cutExtension(QString& dir);
 public:
     UsersTableModel(QObject* pobj = 0);
     ~UsersTableModel();

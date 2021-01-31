@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = UManager
@@ -27,9 +27,11 @@ SOURCES += \
         main.cpp \
         widget.cpp \
     filereader.cpp \
-    userstablemodel.cpp
+    userstablemodel.cpp \
+    xmlparser.cpp
 
 HEADERS += \
         widget.h \
     filereader.h \
-    userstablemodel.h
+    userstablemodel.h \
+    xmlparser.h

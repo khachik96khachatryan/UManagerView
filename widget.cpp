@@ -38,7 +38,7 @@ Widget::~Widget()
 
 void Widget::openJsonFile()
 {
-    QString FileDir = QFileDialog::getOpenFileName(this,"Open Json File",QString(),"*json");
+    QString FileDir = QFileDialog::getOpenFileName(this,"Open Json File",QString(),"*.json *.xml");
         if(FileDir.isEmpty()){
             return;
         }

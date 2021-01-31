@@ -1,6 +1,17 @@
 #include "filereader.h"
 FileReader::FileReader(): m_data(new QVector<QStringList>())
+                        ,xmlObject(new XMLParser)
 {
+}
+
+void FileReader::setCheckJson(bool check)
+{
+    checkJson = check;
+}
+
+bool FileReader::getCheckJson()
+{
+    return checkJson;
 }
 bool FileReader::LoadJson(const QString dir)
 {
@@ -22,9 +33,31 @@ bool FileReader::LoadJson(const QString dir)
       return true;
 }
 
+bool FileReader::LoadXML(const QString dir)
+{
+    QFile file_(dir);
+    if(!file_.open(QIODevice::ReadOnly)){ // Try Catch
+        QMessageBox::critical(0,"Permission denied","Failed to open file:");
+        return false;
+      }
+       QXmlInputSource source(&file_);
+       QXmlSimpleReader reader;
+       reader.setContentHandler(xmlObject);
+       reader.parse(source);
+
+}
+
 void FileReader::updateBaseData()
 {
-    JsonConvert();
+    if(getCheckJson()){
+        JsonConvert();
+        xmlObject->clear_();
+    }
+    else{
+        *m_data = xmlObject->getAssoc();
+    }
+
+     sortData();
 }
 
 void FileReader::JsonConvert()
@@ -51,7 +84,6 @@ void FileReader::JsonConvert()
              }
              begin_iter++;
          }
-         sortData();
 }
 void FileReader::sortData()
 {
